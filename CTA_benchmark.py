@@ -16,13 +16,13 @@ def random_array(n):
     return array # return the new array of n elements
 
 # Make a dataframe for outputting
-cols = ['n=100','n=250','n=500'] # columns to be used for dataframe
-#cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250','n=2500','n=3750','n=5000','n=6250','n=7500','n=8750','n=10000'] # columns to be used for dataframe
+#cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250'] # columns to be used for dataframe
+cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250','n=2500','n=3750','n=5000','n=6250','n=7500','n=8750','n=10000'] # columns to be used for dataframe
 indexes = ['bubble', 'merge', 'counting', 'insertion','selection'] # row indexes to be used
 times_df =  pd.DataFrame(index=indexes,columns=cols) # make a DF to store the sorting times
 
-#array_size = [100, 250, 500, 750, 1000, 1250, 2500, 3750, 5000, 6250, 7500, 8750, 10000] # array with the sizes we will use for benchmarking
-array_size = [100, 250, 500] # array with the sizes we will use for benchmarking
+array_size = [100, 250, 500, 750, 1000, 1250, 2500, 3750, 5000, 6250, 7500, 8750, 10000] # array with the sizes we will use for benchmarking
+#array_size = [100, 250, 500,750,1000,1250] # array with the sizes we will use for benchmarking
 
 
 ##################   BubbleSort##################
@@ -44,6 +44,7 @@ def mergeSort(alist):
         mergeSort(lefthalf) # Recursive call of mergeSort on lefthalf
         mergeSort(righthalf) # Recursive call of mergeSort on righthalf
 
+        # Variables for positions in the RH and LH and, used to control the merging
         i=0
         j=0
         k=0
@@ -66,7 +67,7 @@ def mergeSort(alist):
             j=j+1 # and increment i, k and go again until condtion is false
             k=k+1
     
-# Didnt use this in the end, I coded the stable countinh sort afterwards
+# I didn't use this in the end, I coded the stable countinh sort afterwards
 # Adapted from https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-10.php
 #def countingSort(array1):
 #    m = len(array1) # get the length of the array
@@ -81,26 +82,26 @@ def mergeSort(alist):
 #            i += 1 # increment i, so that next element is filled until count[a] is reached.
 #    return array1 # return the sorted array
 
-
+#  Adapted from https://www.cs.usfca.edu/~galles/visualization/CountingSort.html, https://courses.csail.mit.edu/6.006/spring11/rec/rec11.pdf and https://www.w3resource.com/python-exercises/data-structures-and-algorithms/python-search-and-sorting-exercise-10.php
 def countingSortStable(arr1):
-    print(arr1)
-    count = [0]* 100
-    for a in arr1:
-        count[a] += 1
+    #print(arr1)
+    count = [0]* 100 # make a count array with enough space to count all inputs.
+    for a in arr1: # Iterate of the values of arr1
+        count[a] += 1 # increment count at index a by 1. This loop will count the number of times a occurs in the unsorted array.
      #print(count)
 
-    for i in range(1,len(count)):
-        count[i] = count[i] + count[i - 1]
+    for i in range(1,len(count)): # This loop provides stability in the sorted array
+        count[i] = count[i] + count[i - 1] # The count array will now hold how many elements are <= i
 
     #print(count)
 
-    result = [0] * len(arr1)
-    for i in range(len(arr1),0,-1):
-        j = arr1[i - 1]
-        count[j] = count[j] -1
-        res = count[j]
-        result[res] = j
-    return result
+    result = [0] * len(arr1) # make a result array to be returned by function, same length as unsorted array
+    for i in range(len(arr1),0,-1): # Iterate from end to start of arr1
+        j = arr1[i - 1] # Value in arr1
+        count[j] = count[j] -1 # decrement count element at index j, so we can track how many are before j after assigning j to sorted array
+        res = count[j] # result of previous decrement
+        result[res] = j # place j in result array at index res
+    return result # return the sorted array.
 
 # Adapted from https://runestone.academy/runestone/books/published/pythonds/SortSearch/TheInsertionSort.html
 def insertionSort(alist):
