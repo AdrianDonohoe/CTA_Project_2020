@@ -155,7 +155,7 @@ def main():   # Define the main function
             bubbleSort(my_array_bubble) # Call bubble sort function
             finish_time_bubble = time.time() # get the finish time (seconds)
             #print(my_array_selection)
-            time_elapsed_bubble = finish_time_bubble - start_time_bubble # Calculate time taken to run the sort
+            time_elapsed_bubble = (finish_time_bubble - start_time_bubble) * 1000 # Calculate time taken in ms to run the sort
             print('Time for Bubble Sort Run ', time_elapsed_bubble)
             total_time_bubble += time_elapsed_bubble # Add time taken to the running total time.
 
@@ -165,7 +165,7 @@ def main():   # Define the main function
             mergeSort(my_array_merge)
             finish_time_merge = time.time()
             #print(my_array_merge)  # for checking if it sorted
-            time_elapsed_merge = finish_time_merge - start_time_merge
+            time_elapsed_merge = (finish_time_merge - start_time_merge) * 1000
             print('Time for Merge Sort Run ', time_elapsed_merge)
             total_time_merge += time_elapsed_merge
 
@@ -175,7 +175,7 @@ def main():   # Define the main function
             sorted = countingSortStable(my_array_counting)
             finish_time_counting = time.time()
             print(sorted)
-            time_elapsed_counting = finish_time_counting - start_time_counting
+            time_elapsed_counting = (finish_time_counting - start_time_counting) * 1000
             print('Time for Counting Sort Run ', time_elapsed_counting)
             total_time_counting += time_elapsed_counting
 
@@ -185,7 +185,7 @@ def main():   # Define the main function
             insertionSort(my_array_insertion)
             finish_time_insertion = time.time()
             #print(my_array_insertion)
-            time_elapsed_insertion = finish_time_insertion - start_time_insertion
+            time_elapsed_insertion = (finish_time_insertion - start_time_insertion) * 1000
             print('Time for Insertion Sort Run ', time_elapsed_insertion)
             total_time_insertion += time_elapsed_insertion
 
@@ -195,7 +195,7 @@ def main():   # Define the main function
             selectionSort(my_array_selection)
             finish_time_selection = time.time()
             #print(my_array_selection)
-            time_elapsed_selection = finish_time_selection - start_time_selection
+            time_elapsed_selection = (finish_time_selection - start_time_selection) * 1000
             print('Time for Selection Sort Run ', time_elapsed_selection)
             total_time_selection += time_elapsed_selection
 
