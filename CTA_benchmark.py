@@ -15,14 +15,6 @@ def random_array(n):
         array.append(np.random.randint(0,100)) # and append a random number between 0 and 99
     return array # return the new array of n elements
 
-# Make a dataframe for outputting
-#cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250'] # columns to be used for dataframe
-cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250','n=2500','n=3750','n=5000','n=6250','n=7500','n=8750','n=10000'] # columns to be used for dataframe
-indexes = ['bubble', 'merge', 'counting', 'insertion','selection'] # row indexes to be used
-times_df =  pd.DataFrame(index=indexes,columns=cols) # make a DF to store the sorting times
-
-array_size = [100, 250, 500, 750, 1000, 1250, 2500, 3750, 5000, 6250, 7500, 8750, 10000] # array with the sizes we will use for benchmarking
-#array_size = [100, 250, 500,750,1000,1250] # array with the sizes we will use for benchmarking
 
 
 ##################   BubbleSort##################
@@ -129,6 +121,15 @@ def selectionSort(alist):
        alist[positionOfMax] = temp
 
 def main():   # Define the main function
+    # Make a dataframe for outputting
+    #cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250'] # columns to be used for dataframe
+    cols = ['n=100','n=250','n=500','n=750','n=1000','n=1250','n=2500','n=3750','n=5000','n=6250','n=7500','n=8750','n=10000'] # columns to be used for dataframe
+    indexes = ['bubble', 'merge', 'counting', 'insertion','selection'] # row indexes to be used
+    times_df =  pd.DataFrame(index=indexes,columns=cols) # make a DF to store the sorting times
+
+    array_size = [100, 250, 500, 750, 1000, 1250, 2500, 3750, 5000, 6250, 7500, 8750, 10000] # array with the sizes we will use for benchmarking
+    #array_size = [100, 250, 500,750,1000,1250] # array with the sizes we will use for benchmarking
+    
     for i in range(0,len(array_size)):  # Iterates over the different sizes of n to be sorted
         # Define a total time for each iteration of size n and each algorithm
         total_time_bubble = 0
@@ -170,11 +171,11 @@ def main():   # Define the main function
             total_time_merge += time_elapsed_merge
 
             # do the Counting Sort
-            print(my_array_counting)
+            #print(my_array_counting)
             start_time_counting = time.time()
             sorted = countingSortStable(my_array_counting)
             finish_time_counting = time.time()
-            print(sorted)
+            #print(sorted)
             time_elapsed_counting = (finish_time_counting - start_time_counting) * 1000
             print('Time for Counting Sort Run ', time_elapsed_counting)
             total_time_counting += time_elapsed_counting
@@ -205,11 +206,17 @@ def main():   # Define the main function
         print('Insertion Sort Total time: ', total_time_insertion)
         print('Selection Sort Total time: ', total_time_selection)
     
-        times_df.iat[0,i] = round((total_time_bubble/10),3) # Add average, rounded to 3 places, bubble sort times to first row of dataframe
-        times_df.iat[1,i] = round((total_time_merge/10),3)  # Add merge sort times to second row of dataframe
-        times_df.iat[2,i] = round((total_time_counting/10),3) # Add counting sort ...
-        times_df.iat[3,i] = round((total_time_insertion/10),3) # Add insertion sort ...
-        times_df.iat[4,i] = round((total_time_selection/10),3) # Add selection sort ...
+        #times_df.iat[0,i] = round((total_time_bubble/10),3) # Add average, rounded to 3 places, bubble sort times to first row of dataframe
+        #times_df.iat[1,i] = round((total_time_merge/10),3)  # Add merge sort times to second row of dataframe
+        #times_df.iat[2,i] = round((total_time_counting/10),3) # Add counting sort ...
+        #times_df.iat[3,i] = round((total_time_insertion/10),3) # Add insertion sort ...
+        #times_df.iat[4,i] = round((total_time_selection/10),3) # Add selection sort ...
+
+        times_df.iat[0,i] = total_time_bubble/10 # Add average, rounded to 3 places, bubble sort times to first row of dataframe
+        times_df.iat[1,i] = total_time_merge/10  # Add merge sort times to second row of dataframe
+        times_df.iat[2,i] = total_time_counting/10 # Add counting sort ...
+        times_df.iat[3,i] = total_time_insertion/10 # Add insertion sort ...
+        times_df.iat[4,i] = total_time_selection/10 # Add selection sort ...
 
         print('Bubble Sort Avg: ', times_df.iat[0,i]) # for checking everything is as expected
         print('Merge Sort Avg: ', times_df.iat[1,i])
@@ -217,8 +224,24 @@ def main():   # Define the main function
         print('Insertion Sort Avg: ', times_df.iat[3,i])
         print('Selection Sort Avg: ', times_df.iat[4,i])
 
+    times_df['n=100'] = times_df['n=100'].astype(float) # Rounding wasnt working because columns were objects. Recasting them as floats
+    times_df['n=250'] = times_df['n=250'].astype(float)
+    times_df['n=500'] = times_df['n=500'].astype(float)
+    times_df['n=750'] = times_df['n=750'].astype(float)
+    times_df['n=1000'] = times_df['n=1000'].astype(float)
+    times_df['n=1250'] = times_df['n=1250'].astype(float)
+    times_df['n=2500'] = times_df['n=2500'].astype(float)
+    times_df['n=3750'] = times_df['n=3750'].astype(float)
+    times_df['n=5000'] = times_df['n=5000'].astype(float)
+    times_df['n=6250'] = times_df['n=6250'].astype(float)
+    times_df['n=7500'] = times_df['n=7500'].astype(float)
+    times_df['n=8750'] = times_df['n=8750'].astype(float)
+    times_df['n=10000'] = times_df['n=10000'].astype(float)
+    
+    times_df = times_df.round(3)
     # Adapted from https://stackoverflow.com/a/31885295
     print(tabulate(times_df, headers='keys', tablefmt='grid'))  # Print a table, use columns as headers, format in grid style
+    
 
 
 if __name__ == "__main__":
